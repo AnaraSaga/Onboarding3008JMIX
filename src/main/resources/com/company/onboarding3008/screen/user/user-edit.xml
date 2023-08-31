@@ -10,6 +10,15 @@
             </fetchPlan>
             <loader/>
         </instance>
+        <collection id="departmentsDc" class="com.company.onboarding3008.entity.Department">
+            <fetchPlan extends="_base"/>
+            <loader id="departmentsDl">
+                <query>
+                    <![CDATA[select e from Department e
+                    order by e.name asc]]>
+                </query>
+            </loader>
+        </collection>
     </data>
     <actions>
         <action id="windowCommitAndClose"
@@ -44,12 +53,7 @@
                 <comboBox id="timeZoneField" property="timeZoneId"/>
                 <checkBox id="activeField" property="active"/>
                 <comboBox id="onboardingStatusField" property="onboardingStatus"/>
-                <entityPicker id="departmentField" property="department">
-                    <actions>
-                        <action id="entityLookup" type="entity_lookup"/>
-                        <action id="entityClear" type="entity_clear"/>
-                    </actions>
-                </entityPicker>
+                <entityComboBox id="departmentField" property="department" optionsContainer="departmentsDc"/>
             </column>
         </form>
         <hbox id="editActions" spacing="true">
