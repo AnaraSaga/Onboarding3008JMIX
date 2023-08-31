@@ -59,6 +59,7 @@
                 <column id="active"/>
                 <column id="onboardingStatus"/>
                 <column id="department"/>
+                <column id="id"/>
             </columns>
             <simplePagination/>
             <buttonsPanel id="buttonsPanel"
