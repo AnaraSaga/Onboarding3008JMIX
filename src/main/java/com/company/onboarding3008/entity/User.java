@@ -1,5 +1,6 @@
 package com.company.onboarding3008.entity;
 
+import io.jmix.core.FileRef;
 import io.jmix.core.HasTimeZone;
 import io.jmix.core.annotation.Secret;
 import io.jmix.core.entity.annotation.JmixGeneratedValue;
@@ -58,12 +59,16 @@ public class User implements JmixUserDetails, HasTimeZone {
     @ManyToOne(fetch = FetchType.LAZY)
     private Department department;
 
+    @OrderBy("sortValue")
     @Composition
     @OneToMany(mappedBy = "user")
     private List<UserStep> steps;
 
     @Column(name = "JOININGDATE")
     private LocalDate joiningDate;
+
+    @Column(name = "PICTURE", length = 1024)
+    private FileRef picture;
 
     @Column(name = "ONBOARDING_STATUS")
     private Integer onboardingStatus;
@@ -76,6 +81,14 @@ public class User implements JmixUserDetails, HasTimeZone {
 
     @Transient
     protected Collection<? extends GrantedAuthority> authorities;
+
+    public FileRef getPicture() {
+        return picture;
+    }
+
+    public void setPicture(FileRef picture) {
+        this.picture = picture;
+    }
 
     public void setJoiningDate(LocalDate joiningdate) {
         this.joiningDate = joiningdate;

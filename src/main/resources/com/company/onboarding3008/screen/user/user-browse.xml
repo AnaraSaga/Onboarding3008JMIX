@@ -60,6 +60,7 @@
                 <column id="onboardingStatus"/>
                 <column id="department"/>
                 <column id="id"/>
+                <column id="picture"/>
             </columns>
             <simplePagination/>
             <buttonsPanel id="buttonsPanel"
