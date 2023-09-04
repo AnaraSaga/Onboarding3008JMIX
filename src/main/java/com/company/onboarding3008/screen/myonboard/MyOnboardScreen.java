@@ -50,6 +50,18 @@ public class MyOnboardScreen extends Screen {
         updateLabels();
     }
 
+// to color the overdue dates
+//    @Install(to = "userStepsTable", subject = "styleProvider")
+//    //Style provider get entity and show in table as an argument
+//    private String userStepsTableStyleProvider(final UserStep entity, final String property) {
+//        //if duedate => this step is overdue
+//        if ("duedate".equals(property) && isOverdue(entity)){
+//            return "overdue-step";
+//        }
+//        // if not overdue then style is by default
+//        return null;
+//    }
+
     @Install (to = "userStepsTable.done", subject = "columnGenerator")
     private Component userStepsTableCompletedColumnGenerator (UserStep userStep){
         CheckBox checkBox = uiComponents.create(CheckBox.class);
