@@ -15,13 +15,20 @@
             </loader>
         </collection>
     </data>
-    <layout>
+    <layout expand="spacer" spacing="true">
+        <vbox spacing="true">
+            <label id="totalStepsLabel"/>
+            <label id="completedStepsLabel"/>
+            <label id="overdueStepsLabel"/>
+        </vbox>
         <table id="userStepsTable" height="400px" width="100%" dataContainer="userStepsDc">
             <columns>
+                <column id="done" caption=" " width="50px"/>
                 <column id="step.name"/>
                 <column id="dueDate"/>
                 <column id="completedDate"/>
             </columns>
         </table>
+        <label id="spacer"/>
     </layout>
 </window>
