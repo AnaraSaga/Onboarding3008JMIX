@@ -4,12 +4,10 @@ import com.company.onboarding3008.entity.User;
 import com.company.onboarding3008.entity.UserStep;
 import io.jmix.core.security.CurrentAuthentication;
 import io.jmix.ui.UiComponents;
-import io.jmix.ui.component.CheckBox;
-import io.jmix.ui.component.Component;
-import io.jmix.ui.component.Label;
-import io.jmix.ui.component.Table;
+import io.jmix.ui.component.*;
 import io.jmix.ui.model.CollectionContainer;
 import io.jmix.ui.model.CollectionLoader;
+import io.jmix.ui.model.DataContext;
 import io.jmix.ui.model.InstanceContainer;
 import io.jmix.ui.screen.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,6 +39,9 @@ public class MyOnboardScreen extends Screen {
     @Autowired
     private CollectionContainer <UserStep> userStepsDc;
 
+    @Autowired
+    private DataContext dataContext;
+
     @Subscribe
     public void onBeforeShow(final BeforeShowEvent event) {
         final User user = (User) currentAuthentication.getUser();
@@ -69,7 +70,7 @@ public class MyOnboardScreen extends Screen {
         long completedCount = userStepsDc.getItems().stream()
                 .filter(us -> us.getCompletedDate() != null)
                 .count();
-        completedStepsLabel.setValue("Completed steps");
+        completedStepsLabel.setValue("Completed steps: " + completedCount);
 
         long overdueCount = userStepsDc.getItems().stream()
                 .filter(us -> isOverdue(us))
@@ -86,6 +87,22 @@ public class MyOnboardScreen extends Screen {
     @Subscribe(id = "userStepsDc", target = Target.DATA_CONTAINER)
     public void onUserStepsDcItemPropertyChange(final InstanceContainer.ItemPropertyChangeEvent<UserStep> event) {
         updateLabels();
+    }
+
+    @Subscribe("saveButton")
+    public void onSaveButtonClick(final Button.ClickEvent event) {
+        //DataContext track changes in Entity
+        //when ....commit => all changes save in DB
+        dataContext.commit();
+
+        //....close => close screen.
+        // StandardOutcome - is an object to be analyzed by .close
+        close(StandardOutcome.COMMIT);
+    }
+
+    @Subscribe("discardButton")
+    public void onDiscardButtonClick(final Button.ClickEvent event) {
+        close(StandardOutcome.DISCARD);
     }
 
     //to add column in table:

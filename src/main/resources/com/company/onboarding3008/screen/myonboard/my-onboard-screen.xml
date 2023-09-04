@@ -29,6 +29,11 @@
                 <column id="completedDate"/>
             </columns>
         </table>
+
+        <hbox spacing="true">
+            <button id="saveButton" caption="Save" primary="true"/>
+            <button id="discardButton" caption="Discard"/>
+        </hbox>
         <label id="spacer"/>
     </layout>
 </window>
